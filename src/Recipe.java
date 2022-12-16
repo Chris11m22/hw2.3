@@ -1,51 +1,40 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Recipe {
     private String nameRecipe;
-    private Set<Product> productsSet;
+    private HashMap<Product,Integer> productsMap;
     private int costProducts;
 
 
     public Recipe(String nameRecipe, int costProducts) {
         this.nameRecipe = nameRecipe;
-        this.productsSet = new HashSet<>();
+        this.productsMap = new HashMap<>();
         this.costProducts = costProducts;
     }
-
+    public HashMap<Product,Integer> getProductsMap() {
+        return productsMap;
+    }
     public String getNamePecipe() {
         return nameRecipe;
     }
 
-    public Set<Product> getProductsSet() {
-        return productsSet;
-    }
 
     public int getCostProducts() {
         return costProducts;
     }
 
-    public void addProductInRecipe(Product... products) {
-        this.productsSet.addAll(Arrays.asList(products));
-        for (Product prod : this.productsSet) {
-            this.costProducts += prod.getCost();
+    public void addProductInRecipe(Product products, int amount) {
+        amount = amount == 0 ? 1 : amount;
+        this.productsMap.put(products, amount);
+        for (Product product : this.productsMap.keySet()) {
+            this.costProducts += product.getCost() * this.productsMap.get(product);
         }
-    }
 
-    public void addRecipeInSet(Set<Recipe> recipeSet) {
-        if (!recipeSet.contains(this)) {
-            recipeSet.add(this);
-        } else {
-            throw new UnsupportedOperationException("Рецепт " + this.nameRecipe + " уже существует");
-        }
     }
-
     @Override
     public String toString() {
         return "Recipe{" +
-                "recipeSet=" + productsSet +
+                "recipeSet=" + productsMap +
                 ", costProducts=" + costProducts +
                 ", nameRecipe='" + nameRecipe + '\'' +
                 '}';
@@ -62,6 +51,6 @@ public class Recipe {
 
     @Override
     public int hashCode() {
-        return Objects.hash(productsSet, costProducts, nameRecipe);
+        return Objects.hash(productsMap, costProducts, nameRecipe);
     }
 }

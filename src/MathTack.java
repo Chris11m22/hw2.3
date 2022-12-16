@@ -1,38 +1,14 @@
+import java.util.HashMap;
 import java.util.Objects;
 
 public class MathTack {
-    private int numberStart;
-    private int numberEnd;
 
-    public MathTack(int numberStart, int numberEnd) {
-        this.numberStart = numberStart;
-        this.numberEnd = numberEnd;
-    }
+   HashMap<String, Integer> taskMap = new HashMap<>();
 
-
-    public int getNumberStart() {
-        return numberStart;
-    }
-
-    public int getNumberEnd() {
-        return numberEnd;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MathTack that = (MathTack) o;
-        return numberStart == that.numberStart && numberEnd == that.numberEnd || numberStart == that.numberEnd && numberEnd == that.numberStart;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(numberStart) + Objects.hashCode(numberEnd);
-    }
-
-    @Override
-    public String toString() {
-        return numberStart + " * " + numberEnd + " = " + (numberStart * numberEnd);
+    public void addInMathTack(String key, Integer value) {
+        if (Objects.equals(this.taskMap.get(key), value)) {
+            throw new IllegalArgumentException();
+        }
+        this.taskMap.put(key, value);
     }
 }

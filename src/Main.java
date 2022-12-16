@@ -1,6 +1,4 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
 
@@ -27,32 +25,59 @@ public class Main {
         Recipe salad = new Recipe("Салат", 0);
         Recipe milkshake = new Recipe("Молочный коктейль", 0);
 
-        salad.addProductInRecipe(tomatoes, cucumbers);
-        milkshake.addProductInRecipe(milk, bananas);
 
-        salad.addRecipeInSet(allRecipe);
-        milkshake.addRecipeInSet(allRecipe);
-        //System.out.println(allRecipe);
+        salad.addProductInRecipe(tomatoes, 3);
+        salad.addProductInRecipe(cucumbers, 2);
+        milkshake.addProductInRecipe(bananas, 3);
+        milkshake.addProductInRecipe(milk, 2);
 
-        Set<Integer> number = new HashSet<>();
-        for (int i = 0; i < 21; i++) {
-            number.add((int) (Math.random() * 1000) + 1);
+        MathTack mathTack = new MathTack();
+        mathTack.addInMathTack("6", 6);
+        System.out.println(mathTack.taskMap);
+        mathTack.addInMathTack("6", 12);
+        System.out.println(mathTack.taskMap);
+
+        Map<String, List<Integer>> map1 = new HashMap<>();
+        List<Integer> list = new ArrayList<>();
+        List<Integer> list2 = new ArrayList<>();
+        List<Integer> list3 = new ArrayList<>();
+        List<Integer> list4 = new ArrayList<>();
+        List<Integer> list5 = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            list.add((int) (Math.random() * 1000));
+            list2.add((int) (Math.random() * 1000));
+            list3.add((int) (Math.random() * 1000));
+            list4.add((int) (Math.random() * 1000));
+            list5.add((int) (Math.random() * 1000));
         }
-        number.removeIf(integer -> integer % 2 != 0);
-        System.out.println(number);
+        map1.put("keyOne", list);
+        map1.put("keyTwo", list2);
+        map1.put("keyThree", list3);
+        map1.put("keyFour", list4);
+        map1.put("keyFive", list5);
+        System.out.println(map1);
 
-    Passport passportOne = new Passport(45676789L, "Злобина ", "Дарья ", "Валерьевна ", "22.11.1997");
-    Passport passportTwo = new Passport(234567890L, "Иванов ", "Иван ", "Иванович ", "11.03.2000");
-    Passport passportThree = new Passport(45679806L, "Трофимов ", "Олег ", "Михайлович ", "03.12.1976");
+        Map<String, Integer> map2 = new HashMap<>();
+        for (Map.Entry<String, List<Integer>> value : map1.entrySet()) {
+            map2.put(value.getKey(), sumVal(value.getValue()));
+        }
+        System.out.println(map2);
+        Map<Integer, String> linkedHashMap = new LinkedHashMap<>();
+        for (int i = 0; i < 11; i++) {
+            String s = "value";
+            s += i;
+            linkedHashMap.put(i, s);
+        }
+        System.out.println(linkedHashMap);
 
-    HashMap<Long, Passport> passportMap = new HashMap<>();
 
-        passportMap.put(passportOne.getNumPassport(),passportOne);
-        passportMap.put(passportTwo.getNumPassport(),passportTwo);
-        passportMap.put(passportThree.getNumPassport(),passportThree);
-        System.out.println(passportMap);
+    }
 
-
-        System.out.println(passportMap.get(234567890L));
-}
+    public static int sumVal(List<Integer> list) {
+        int sum = 0;
+        for (Integer value : list) {
+            sum += value;
+        }
+        return sum;
+    }
 }
